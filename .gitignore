@@ -1,18 +1,49 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
-# Other files and folders
-.settings/
+public class OnlineTV extends Application {
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+    @Override
+    public void start(Stage stage) {
+        // Crie uma instância do Media Player
+        MediaPlayer player = new MediaPlayer(new Media("URL_DO_SEU_VIDEO_ONLINE"));
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+        // Crie uma instância do MediaView
+        MediaView mediaView = new MediaView(player);
+
+        // Adicione o MediaView em um layout
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(mediaView);
+
+        // Crie uma cena para o layout
+        Scene scene = new Scene(borderPane, 800, 600);
+
+        // Exiba a cena na janela
+        stage.setScene(scene);
+
+        // Redimensione a janela para que ela preencha a tela
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        stage.setX(bounds.getMinX());
+        stage.setY(bounds.getMinY());
+        stage.setWidth(bounds.getWidth());
+        stage.setHeight(bounds.getHeight());
+
+        // Inicie a reprodução do vídeo
+        player.play();
+
+        // Exiba a janela
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
